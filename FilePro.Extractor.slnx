@@ -1,0 +1,6 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/FilePro.Extractor.Cli/FilePro.Extractor.Cli.csproj" />
+    <Project Path="src/FilePro.Extractor.Core/FilePro.Extractor.Core.csproj" />
+  </Folder>
+</Solution>

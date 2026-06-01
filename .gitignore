@@ -1,0 +1,18 @@
+bin/
+obj/
+*.user
+.vs/
+.idea/
+*.suo
+.DS_Store
+
+# Real FilePro datasets contain customer PII — never commit them
+samples/
+testdata/
+*.csv
+
+# Provided real dataset(s) for local validation — keep out of git
+PDMcli/
+
+# Internal planning doc — contains the filePro encoded password and infra paths; keep local
+PLAN.md
