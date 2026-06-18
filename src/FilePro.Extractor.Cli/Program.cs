@@ -5,6 +5,7 @@ string? root = null;
 string? logPath = null;
 bool excludeDeleted = false;
 bool dryRun = false;
+char separator = SeparatorOption.Default;
 
 for (int i = 0; i < args.Length; i++)
 {
@@ -21,6 +22,14 @@ for (int i = 0; i < args.Length; i++)
             break;
         case "--dry-run":
             dryRun = true;
+            break;
+        case "--separator":
+            string rawSeparator = NextValue(args, ref i, "--separator");
+            if (!SeparatorOption.TryParse(rawSeparator, out separator, out string? separatorError))
+            {
+                Console.Error.WriteLine($"Error: {separatorError}");
+                return 2;
+            }
             break;
         case "-h":
         case "--help":
@@ -51,6 +60,7 @@ var options = new ExtractionOptions
     Root = root,
     IncludeDeleted = !excludeDeleted,
     DryRun = dryRun,
+    Separator = separator
 };
 
 using var logger = new ExtractionLogger(logPath);
@@ -76,13 +86,17 @@ static string NextValue(string[] args, ref int i, string flag)
 static void PrintUsage()
 {
     Console.WriteLine("""
-        Usage: filepro-extract --root <path> [--exclude-deleted] [--dry-run] [--log <path>]
+        Usage: filepro-extract --root <path> [--exclude-deleted] [--dry-run] [--log <path>] [--separator <char>]
 
           --root <path>       Directory containing FilePro dataset subdirectories,
                               or a single dataset folder (one with a 'map' file).
           --exclude-deleted   Skip deleted records and omit the _is_deleted column.
           --dry-run           Parse and count but write no CSV files.
           --log <path>        Append the run log to this file (in addition to console).
+          --separator <char>  Override the CSV field delimiter: a single character, or
+                              '\t'/'tab' for TSV. Default is a comma. (Excel only
+                              auto-detects a non-comma delimiter via a 'sep=' line,
+                              which this tool does not emit.)
           -h, --help          Show this help.
         """);
 }
