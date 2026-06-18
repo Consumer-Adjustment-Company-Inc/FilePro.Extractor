@@ -3,4 +3,7 @@
     <Project Path="src/FilePro.Extractor.Cli/FilePro.Extractor.Cli.csproj" />
     <Project Path="src/FilePro.Extractor.Core/FilePro.Extractor.Core.csproj" />
   </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/FilePro.Extractor.Tests/FilePro.Extractor.Tests.csproj" />
+  </Folder>
 </Solution>

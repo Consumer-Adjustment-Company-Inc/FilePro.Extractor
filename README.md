@@ -33,7 +33,8 @@ format observations documented by **Jim Storch** in the README of
   dataset's own folder; never overwrites a previous export.
 - Includes active **and** deleted records by default, flagged by a leading `_is_deleted`
   column. `--exclude-deleted` drops deleted rows and omits the column.
-- Decodes input as ISO-8859-1 and writes UTF-8 (with BOM), RFC 4180 CSV.
+- Decodes input as ISO-8859-1 and writes UTF-8 (with BOM), quoted-field CSV (RFC 4180
+  when the delimiter is the default comma; `--separator` can override it).
 - Skips non-datasets (no `map`, `Alien:` maps, incomplete folders missing `key`) with a
   logged reason, surfaces any `Alien:` references for review, and prints a per-run summary.
 
@@ -54,6 +55,9 @@ dotnet run --project src/FilePro.Extractor.Cli -- --root /path/to/filepro --dry-
 # active records only (no _is_deleted column)
 dotnet run --project src/FilePro.Extractor.Cli -- --root /path/to/filepro --exclude-deleted
 
+# use a different delimiter (single char, or '\t'/'tab' for TSV)
+dotnet run --project src/FilePro.Extractor.Cli -- --root /path/to/filepro --separator ';'
+
 # also append the run summary to a log file
 dotnet run --project src/FilePro.Extractor.Cli -- --root /path/to/filepro --log run.log
 ```
@@ -64,5 +68,6 @@ dotnet run --project src/FilePro.Extractor.Cli -- --root /path/to/filepro --log 
 | `--exclude-deleted` | Skip deleted records and omit the `_is_deleted` column. |
 | `--dry-run` | Parse and count, but write no CSV files. |
 | `--log <path>` | Append the run log to a file in addition to the console. |
+| `--separator <char>` | Override the CSV field delimiter. A single character, or `\t`/`tab` for TSV. Default is a comma. Cannot be `"`, CR, or LF. |
 
 > **Always run against a _copy_ of your filePro data, never the live files.**

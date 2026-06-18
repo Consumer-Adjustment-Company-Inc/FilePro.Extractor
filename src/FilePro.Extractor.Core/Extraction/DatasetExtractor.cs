@@ -79,7 +79,7 @@ public sealed class DatasetExtractor
             if (!options.DryRun)
             {
                 report.OutputPath = MakeOutputPath(folder, name);
-                writer = new CsvRecordWriter(report.OutputPath);
+                writer = new CsvRecordWriter(report.OutputPath, options.Separator);
                 writer.WriteRow(header);
             }
 

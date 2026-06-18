@@ -9,4 +9,7 @@ public sealed class ExtractionOptions
 
     /// <summary>When true, parse and count but write no CSV files.</summary>
     public bool DryRun { get; init; }
+
+    /// <summary>Field delimiter for the CSV output. Defaults to a comma.</summary>
+    public char Separator { get; init; } = SeparatorOption.Default;
 }
